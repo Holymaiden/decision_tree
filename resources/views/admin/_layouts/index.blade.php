@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Dashboard &mdash; Admin</title>
+    <link rel="shortcut icon" href="{{ url('logo.png') }}" type="image/x-icon" />
 
     @stack('cssScript')
 

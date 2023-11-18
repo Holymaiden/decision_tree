@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
-use App\Services\Contracts\RoleContract;
+use App\Services\Contracts\TransactionContract;
 
-class RoleController extends Controller
+class TransactionController extends Controller
 {
-    protected $roleContract,  $response;
+    protected $transactionContract, $response, $title;
 
-    public function __construct(RoleContract $roleContract)
+    public function __construct(TransactionContract $transactionContract)
     {
-        $this->title = "roles";
-        $this->roleContract = $roleContract;
-        // $this->middleware("roles:{$this->title}");
+        $this->title = "transactions";
+        $this->transactionContract = $transactionContract;
         $this->response = [
             'code' => config('constants.HTTP.CODE.FAILED'),
             'message' => __('error.public')
@@ -38,11 +37,12 @@ class RoleController extends Controller
         try {
             $title = $this->title;
             $jml = $request->jml == '' ? config('constants.PAGINATION') : $request->jml;
-            $data = Role::when($request->input('cari'), function ($query) use ($request) {
-                $query->where('role', 'like', "%{$request->input('cari')}%")
-                    ->orWhere("role_name", "like", "%{$request->input('cari')}%");
+            $data = Transaction::with('detail')->when($request->input('cari'), function ($query) use ($request) {
+                $query->where('name', 'like', "%{$request->input('cari')}%")
+                    ->orWhere("date", "like", "%{$request->input('cari')}%")
+                    ->orWhere("total_price", "like", "%{$request->input('cari')}%");
             })
-                ->orderBy('role_name', 'desc')
+                ->orderBy('id', 'desc')
                 ->paginate($jml);
 
             $view = view('admin.' . $this->title . '.data', compact('data', 'title'))->with('i', ($request->input('page', 1) -
@@ -61,7 +61,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $this->roleContract->store($request);
+            $data = $this->transactionContract->store($request);
             return response()->json($data);
         } catch (\Exception $e) {
             $this->response['message'] = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
@@ -72,7 +72,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         try {
-            $data = $this->roleContract->show($id);
+            $data = $this->transactionContract->show($id);
             return response()->json($data);
         } catch (\Exception $e) {
             $this->response['message'] = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
@@ -83,7 +83,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = $this->roleContract->update($request, $id);
+            $data = $this->transactionContract->update($request, $id);
             return response()->json($data);
         } catch (\Exception $e) {
             $this->response['message'] = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();
@@ -94,7 +94,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         try {
-            $data = $this->roleContract->delete($id);
+            $data = $this->transactionContract->delete($id);
             return response()->json($data);
         } catch (\Exception $e) {
             $this->response['message'] = $e->getMessage() . ' in file :' . $e->getFile() . ' line: ' . $e->getLine();

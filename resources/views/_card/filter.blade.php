@@ -1,6 +1,6 @@
 <div class="card-sub">
     <div class="btn-toolbar justify-content-between">
-        <select class="form-control form-control-sm selectric" style="" name="" id="jumlah">
+        <select class="form-control form-control-sm selectric" name="" id="jumlah">
             <option selected="selected">5</option>
             <option>10</option>
             <option>15</option>

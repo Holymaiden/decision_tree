@@ -17,24 +17,28 @@
             </li>
 
             <li class="@stack('users')">
-                <a class="nav-link" href="{{ url('users') }}">
-                    <i class="fas fa-fire"></i>
+                <a class="nav-link" href="{{ route('users') }}">
+                    <i class="fas fa-users"></i>
                     <span>Users</span>
                 </a>
             </li>
-            <!-- <li class="nav-item dropdown ">
-                <a href="#" class="nav-link has-dropdown">
-                    <i class="fas fa-list-alt"></i>
-                    <span>Users</span>
+            <li class="@stack('drugs')">
+                <a class="nav-link" href="{{ route('drugs') }}">
+                    <i class="fas fa-capsules"></i>
+                    <span>Obat</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li class="1">
-                        <a class="nav-link" href="{{ url('admin/users') }}">
-                            Users
-                        </a>
-                    </li>
-
-                </ul>
+            </li>
+            <li class="@stack('transactions')">
+                <a class="nav-link" href="{{ route('transactions') }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Transaksi</span>
+                </a>
+            </li>
+            <!-- <li class="@stack('sales')">
+                <a class="nav-link" href="{{ route('sales') }}">
+                    </i><i class="fas fa-hands-helping"></i>
+                    <span>Penjualan</span>
+                </a>
             </li> -->
         </ul>
 

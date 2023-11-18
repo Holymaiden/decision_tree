@@ -4,10 +4,6 @@
 @include('admin._layouts.css.css-table')
 @endpush
 
-@push('user-settings')
-active
-@endpush
-
 @push($title)
 active
 @endpush
@@ -28,7 +24,7 @@ active
                     <div class="card-header">
                         <h4></h4>
                         <div class="card-header-form">
-                            {!! Helper::btn_create($title) !!}
+                            {!! Helper::btn_create(1) !!}
                         </div>
                     </div>
                     <div class="card-body">
@@ -40,7 +36,6 @@ active
                                 <thead>
                                     <tr>
                                         <th width="8%">No</th>
-                                        <th>No. Anggota</th>
                                         <th>Name</th>
                                         <th>Username</th>
                                         <th>Email</th>

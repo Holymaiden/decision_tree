@@ -9,7 +9,7 @@ use App\Services\Contracts\UserContract;
 
 class UserController extends Controller
 {
-    protected $roleContract,  $response;
+    protected $userContract, $response, $title;
 
     public function __construct(UserContract $userContract)
     {
